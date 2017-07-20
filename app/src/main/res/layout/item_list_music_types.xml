@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="170dp"
+    android:background="@color/colorPrimaryLight"
+    android:layout_margin="1dp">
+    <ImageView
+        android:id="@+id/iv_item_music_types"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@raw/genre_x2_"
+        android:scaleType="centerCrop"/>
+    <TextView
+        android:id="@+id/tv_item_music_types"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="This is something I wanna show"
+        android:padding="16dp"
+        android:textColor="@color/primary_text"
+        android:textSize="16sp"
+        android:background="@drawable/custom_gradient_background"/>
+</RelativeLayout>

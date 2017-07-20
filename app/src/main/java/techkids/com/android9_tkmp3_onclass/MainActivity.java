@@ -3,26 +3,17 @@ package techkids.com.android9_tkmp3_onclass;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.WindowManager;
-import android.widget.Toast;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import techkids.com.android9_tkmp3_onclass.networks.GetMusicTypes;
-import techkids.com.android9_tkmp3_onclass.networks.RetrofitFactory;
-import techkids.com.android9_tkmp3_onclass.networks.jsonModels.MusicTypesJSONModel;
-import techkids.com.android9_tkmp3_onclass.networks.jsonModels.MusicTypesRespondModel;
+import techkids.com.android9_tkmp3_onclass.adapters.PagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
     String TAG = MainActivity.class.toString();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +45,11 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_view_compact_black_24dp));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_favorite_black_24dp));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_file_download_black_24dp));
-        tabLayout.getTabAt(0).getIcon().setAlpha(250);
-        tabLayout.getTabAt(1).getIcon().setAlpha(125);
-        tabLayout.getTabAt(2).getIcon().setAlpha(125);
+        tabLayout.getTabAt(0).getIcon().setAlpha(255);
+        for (int i = 1; i < tabLayout.getTabCount(); i++) {
+            Log.d(TAG, "onCreate: " + tabLayout.getTabCount());
+            tabLayout.getTabAt(i).getIcon().setAlpha(125);
+        }
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -81,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
-                tab.getIcon().setAlpha(125);
+                tab.getIcon().setAlpha(255);
             }
         });
 
@@ -95,11 +88,25 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+//        int id = item.getItemId();
 //        if (id == R.id.action_settings) {
 //            return true;
 //        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        int count = getFragmentManager().getBackStackEntryCount();
+
+        if (count == 0) {
+            super.onBackPressed();
+            //additional code
+        } else {
+            getFragmentManager().popBackStack();
+        }
+
     }
 }

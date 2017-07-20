@@ -1,4 +1,4 @@
-package techkids.com.android9_tkmp3_onclass;
+package techkids.com.android9_tkmp3_onclass.adapters;
 
 /**
  * Created by tungthanh.1497 on 07/16/2017.

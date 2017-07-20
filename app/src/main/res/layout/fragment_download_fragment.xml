@@ -5,6 +5,11 @@
     android:orientation="vertical"
     tools:context="techkids.com.android9_tkmp3_onclass.fragments.DownloadFragment">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@color/colorAccent"/>
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
