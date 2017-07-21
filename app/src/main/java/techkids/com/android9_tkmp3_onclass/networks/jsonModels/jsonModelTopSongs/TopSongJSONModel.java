@@ -1,4 +1,4 @@
-package techkids.com.android9_tkmp3_onclass.networks.jsonModels;
+package techkids.com.android9_tkmp3_onclass.networks.jsonModels.jsonModelTopSongs;
 
 import com.google.gson.annotations.SerializedName;
 

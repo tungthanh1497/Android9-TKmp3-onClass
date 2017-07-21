@@ -27,9 +27,9 @@ import techkids.com.android9_tkmp3_onclass.databases.TopSongModel;
 import techkids.com.android9_tkmp3_onclass.managers.ScreenManager;
 import techkids.com.android9_tkmp3_onclass.networks.GetTopSongs;
 import techkids.com.android9_tkmp3_onclass.networks.RetrofitFactory;
-import techkids.com.android9_tkmp3_onclass.networks.jsonModels.TopSongImage;
-import techkids.com.android9_tkmp3_onclass.networks.jsonModels.TopSongJSONModel;
-import techkids.com.android9_tkmp3_onclass.networks.jsonModels.TopSongRespondModel;
+import techkids.com.android9_tkmp3_onclass.networks.jsonModels.jsonModelTopSongs.TopSongImage;
+import techkids.com.android9_tkmp3_onclass.networks.jsonModels.jsonModelTopSongs.TopSongJSONModel;
+import techkids.com.android9_tkmp3_onclass.networks.jsonModels.jsonModelTopSongs.TopSongRespondModel;
 
 /**
  * A simple {@link Fragment} subclass.

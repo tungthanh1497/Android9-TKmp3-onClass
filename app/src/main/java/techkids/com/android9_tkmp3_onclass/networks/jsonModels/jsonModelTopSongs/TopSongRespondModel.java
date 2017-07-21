@@ -1,4 +1,4 @@
-package techkids.com.android9_tkmp3_onclass.networks.jsonModels;
+package techkids.com.android9_tkmp3_onclass.networks.jsonModels.jsonModelTopSongs;
 
 /**
  * Created by tungthanh.1497 on 07/20/2017.

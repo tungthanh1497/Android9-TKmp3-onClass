@@ -1,6 +1,5 @@
-package techkids.com.android9_tkmp3_onclass.networks.jsonModels;
+package techkids.com.android9_tkmp3_onclass.networks.jsonModels.jsonModelTopSongs;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

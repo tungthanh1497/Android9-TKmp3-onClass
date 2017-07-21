@@ -24,8 +24,8 @@ import techkids.com.android9_tkmp3_onclass.databases.MusicTypeModel;
 import techkids.com.android9_tkmp3_onclass.managers.ScreenManager;
 import techkids.com.android9_tkmp3_onclass.networks.GetMusicTypes;
 import techkids.com.android9_tkmp3_onclass.networks.RetrofitFactory;
-import techkids.com.android9_tkmp3_onclass.networks.jsonModels.MusicTypesJSONModel;
-import techkids.com.android9_tkmp3_onclass.networks.jsonModels.MusicTypesRespondModel;
+import techkids.com.android9_tkmp3_onclass.networks.jsonModels.jsonModelMusicTypes.MusicTypesJSONModel;
+import techkids.com.android9_tkmp3_onclass.networks.jsonModels.jsonModelMusicTypes.MusicTypesRespondModel;
 
 /**
  * A simple {@link Fragment} subclass.
