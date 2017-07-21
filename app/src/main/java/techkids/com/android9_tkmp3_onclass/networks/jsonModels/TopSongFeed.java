@@ -7,7 +7,7 @@ import java.util.List;
  * Created by tungthanh.1497 on 07/20/2017.
  */
 
-public class Feed {
+public class TopSongFeed {
     List<TopSongJSONModel> entry;
 
     public List<TopSongJSONModel> getEntry() {
@@ -18,7 +18,7 @@ public class Feed {
         this.entry = entry;
     }
 
-    public Feed(List<TopSongJSONModel> entry) {
+    public TopSongFeed(List<TopSongJSONModel> entry) {
         this.entry = entry;
     }
 

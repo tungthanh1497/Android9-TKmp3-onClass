@@ -4,11 +4,11 @@ package techkids.com.android9_tkmp3_onclass.networks.jsonModels;
  * Created by tungthanh.1497 on 07/20/2017.
  */
 
-public class Image {
+public class TopSongImage {
     private String label;
-    private Attribute attributes;
+    private TopSongAttribute attributes;
 
-    public Image(String label, Attribute attributes) {
+    public TopSongImage(String label, TopSongAttribute attributes) {
         this.label = label;
         this.attributes = attributes;
     }
@@ -22,17 +22,17 @@ public class Image {
         this.label = label;
     }
 
-    public Attribute getAttributes() {
+    public TopSongAttribute getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(Attribute attributes) {
+    public void setAttributes(TopSongAttribute attributes) {
         this.attributes = attributes;
     }
 
     @Override
     public String toString() {
-        return "Image{" +
+        return "TopSongImage{" +
                 "label='" + label + '\'' +
                 ", attributes=" + attributes +
                 '}';

@@ -10,11 +10,11 @@ import java.util.List;
 
 public class TopSongJSONModel {
     @SerializedName("im:name")
-    private Name songName;
+    private TopSongName songName;
     @SerializedName("im:image")
-    private List<Image> songImage;
+    private List<TopSongImage> songImage;
     @SerializedName("im:artist")
-    private Artist songArtist;
+    private TopSongArtist songArtist;
 
     @Override
     public String toString() {
@@ -25,35 +25,35 @@ public class TopSongJSONModel {
                 '}';
     }
 
-    public TopSongJSONModel(Name songName, List<Image> songImage, Artist songArtist) {
+    public TopSongJSONModel(TopSongName songName, List<TopSongImage> songImage, TopSongArtist songArtist) {
         this.songName = songName;
         this.songImage = songImage;
         this.songArtist = songArtist;
     }
 
-    public List<Image> getSongImage() {
+    public List<TopSongImage> getSongImage() {
 
         return songImage;
     }
 
-    public void setSongImage(List<Image> songImage) {
+    public void setSongImage(List<TopSongImage> songImage) {
         this.songImage = songImage;
     }
 
-    public Name getSongName() {
+    public TopSongName getSongName() {
         return songName;
     }
 
-    public void setSongName(Name songName) {
+    public void setSongName(TopSongName songName) {
         this.songName = songName;
     }
 
 
-    public Artist getSongArtist() {
+    public TopSongArtist getSongArtist() {
         return songArtist;
     }
 
-    public void setSongArtist(Artist songArtist) {
+    public void setSongArtist(TopSongArtist songArtist) {
         this.songArtist = songArtist;
     }
 

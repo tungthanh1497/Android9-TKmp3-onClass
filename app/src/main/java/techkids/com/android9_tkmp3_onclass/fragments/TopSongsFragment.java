@@ -23,10 +23,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import techkids.com.android9_tkmp3_onclass.R;
 import techkids.com.android9_tkmp3_onclass.adapters.TopSongsAdapter;
+import techkids.com.android9_tkmp3_onclass.databases.TopSongModel;
 import techkids.com.android9_tkmp3_onclass.managers.ScreenManager;
 import techkids.com.android9_tkmp3_onclass.networks.GetTopSongs;
 import techkids.com.android9_tkmp3_onclass.networks.RetrofitFactory;
-import techkids.com.android9_tkmp3_onclass.networks.jsonModels.Image;
+import techkids.com.android9_tkmp3_onclass.networks.jsonModels.TopSongImage;
 import techkids.com.android9_tkmp3_onclass.networks.jsonModels.TopSongJSONModel;
 import techkids.com.android9_tkmp3_onclass.networks.jsonModels.TopSongRespondModel;
 
@@ -44,7 +45,7 @@ public class TopSongsFragment extends Fragment implements View.OnClickListener {
     private static final String TAG = MusticTypesFragment.class.toString();
     @BindView(R.id.rv_top_songs)
     RecyclerView rvTopSongs;
-    List<TopSongJSONModel> topSongJSONModelList = new ArrayList<>();
+    List<TopSongModel> topSongModelList = new ArrayList<>();
     TopSongsAdapter topSongsAdapter;
 
     public TopSongsFragment() {
@@ -70,19 +71,21 @@ public class TopSongsFragment extends Fragment implements View.OnClickListener {
                 List<TopSongJSONModel> entry = response.body().getFeed().getEntry();
                 Log.d(TAG, "onResponseEntry: " + entry);
                 for (TopSongJSONModel topSongJSONModel : entry) {
-                    List<Image> images = new ArrayList<>();
-                    for (Image image : topSongJSONModel.getSongImage()) {
+                    TopSongModel topSongModel = new TopSongModel();
+                    topSongModel.setName(topSongJSONModel.getSongName().getLabel());
+                    topSongModel.setAuthor(topSongJSONModel.getSongArtist().getLabel());
+                    List<TopSongImage> images = topSongJSONModel.getSongImage();
+                    for (TopSongImage image : images) {
                         if (image.getAttributes().getHeight() == 170) {
-                            images.add(image);
+                            topSongModel.setImage(image.getLabel());
                         }
                     }
-                    topSongJSONModel.setSongImage(images);
-                    topSongJSONModelList.add(topSongJSONModel);
+                    topSongModelList.add(topSongModel);
 //                    Log.d(TAG, "onResponse: " + subgenres.get(i));
                 }
-                tvNumOfSongs.setText(topSongJSONModelList.size() + " songs");
+                tvNumOfSongs.setText(topSongModelList.size() + " songs");
                 topSongsAdapter.notifyDataSetChanged();
-                Log.d(TAG, "\nOnResponseList:\n" + topSongJSONModelList);
+//                Log.d(TAG, "\nOnResponseList:\n" + topSongModelList);
             }
 
             @Override
@@ -95,7 +98,7 @@ public class TopSongsFragment extends Fragment implements View.OnClickListener {
 
     private void setupUI(View view) {
         ButterKnife.bind(this, view);
-        topSongsAdapter = new TopSongsAdapter(topSongJSONModelList, getContext());
+        topSongsAdapter = new TopSongsAdapter(topSongModelList, getContext());
         rvTopSongs.setAdapter(topSongsAdapter);
         ivBackgroundCover.setImageResource(ScreenManager.musicTypeClicked.getImageID());
         tvMusicType.setText(ScreenManager.musicTypeClicked.getTranslation_key().toUpperCase());
@@ -106,7 +109,7 @@ public class TopSongsFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        TopSongJSONModel topSongJSONModel = (TopSongJSONModel) v.getTag();
+        TopSongModel topSongModel = (TopSongModel) v.getTag();
 //        ScreenManager.openFragment(getActivity().getSupportFragmentManager(), new DownloadFragment(), R.id.rl_layout_container, this);
 
     }

@@ -5,18 +5,18 @@ package techkids.com.android9_tkmp3_onclass.networks.jsonModels;
  */
 
 public class TopSongRespondModel {
-    private Feed feed;
+    private TopSongFeed feed;
 
-    public TopSongRespondModel(Feed feed) {
+    public TopSongRespondModel(TopSongFeed feed) {
         this.feed = feed;
     }
 
-    public Feed getFeed() {
+    public TopSongFeed getFeed() {
 
         return feed;
     }
 
-    public void setFeed(Feed feed) {
+    public void setFeed(TopSongFeed feed) {
         this.feed = feed;
     }
 }

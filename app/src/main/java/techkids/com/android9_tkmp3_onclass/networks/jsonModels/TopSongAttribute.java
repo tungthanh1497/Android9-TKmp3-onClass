@@ -4,10 +4,10 @@ package techkids.com.android9_tkmp3_onclass.networks.jsonModels;
  * Created by tungthanh.1497 on 07/20/2017.
  */
 
-public class Attribute {
+public class TopSongAttribute {
     private int height;
 
-    public Attribute(int height) {
+    public TopSongAttribute(int height) {
         this.height = height;
     }
 

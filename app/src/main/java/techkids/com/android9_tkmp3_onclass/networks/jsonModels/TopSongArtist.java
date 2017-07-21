@@ -4,7 +4,7 @@ package techkids.com.android9_tkmp3_onclass.networks.jsonModels;
  * Created by tungthanh.1497 on 07/20/2017.
  */
 
-public class Name {
+public class TopSongArtist {
     private String label;
 
     public String getLabel() {
@@ -15,7 +15,7 @@ public class Name {
         this.label = label;
     }
 
-    public Name(String label) {
+    public TopSongArtist(String label) {
 
         this.label = label;
     }
