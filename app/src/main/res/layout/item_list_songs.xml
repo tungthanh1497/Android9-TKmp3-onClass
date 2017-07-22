@@ -3,10 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="1dp"
+    android:clickable="true"
     android:background="@color/colorPrimaryLight"
     android:padding="16dp">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <!--<de.hdodenhof.circleimageview.CircleImageView-->
+        <!--android:id="@+id/iv_ava_song"-->
+        <!--android:layout_width="50dp"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_marginLeft="8dp"-->
+        <!--android:layout_marginRight="16dp"-->
+        <!--android:scaleType="centerCrop"-->
+        <!--android:src="@drawable/play_button" />-->
+    <ImageView
         android:id="@+id/iv_ava_song"
         android:layout_width="50dp"
         android:layout_height="50dp"

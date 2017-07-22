@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +23,7 @@ import retrofit2.Response;
 import techkids.com.android9_tkmp3_onclass.R;
 import techkids.com.android9_tkmp3_onclass.adapters.MusicTypesAdapter;
 import techkids.com.android9_tkmp3_onclass.databases.MusicTypeModel;
+import techkids.com.android9_tkmp3_onclass.events.OnClickMusicType;
 import techkids.com.android9_tkmp3_onclass.managers.ScreenManager;
 import techkids.com.android9_tkmp3_onclass.networks.GetMusicTypes;
 import techkids.com.android9_tkmp3_onclass.networks.RetrofitFactory;
@@ -103,6 +106,8 @@ public class MusticTypesFragment extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View v) {
         MusicTypeModel musicTypeModel = (MusicTypeModel) v.getTag();
-        ScreenManager.openFragment(getActivity().getSupportFragmentManager(), new TopSongsFragment(), R.id.rl_layout_container, this, musicTypeModel);
+        EventBus.getDefault().postSticky(new OnClickMusicType(musicTypeModel));
+        ScreenManager.openFragment(getActivity().getSupportFragmentManager(), new TopSongsFragment(), R.id.rl_layout_container);
+//        ScreenManager.openFragment(getActivity().getSupportFragmentManager(), new TopSongsFragment(), R.id.rl_layout_container, this, musicTypeModel);
     }
 }

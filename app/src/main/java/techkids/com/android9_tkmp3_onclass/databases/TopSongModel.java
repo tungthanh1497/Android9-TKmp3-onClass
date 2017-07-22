@@ -8,6 +8,15 @@ public class TopSongModel {
     private String name;
     private String image;
     private String author;
+    private String linkSrc;
+
+    public String getLinkSrc() {
+        return linkSrc;
+    }
+
+    public void setLinkSrc(String linkSrc) {
+        this.linkSrc = linkSrc;
+    }
 
     public TopSongModel() {
     }

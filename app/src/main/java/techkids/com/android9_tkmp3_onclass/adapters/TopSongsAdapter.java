@@ -13,6 +13,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 import techkids.com.android9_tkmp3_onclass.R;
 import techkids.com.android9_tkmp3_onclass.databases.TopSongModel;
 
@@ -72,8 +73,8 @@ public class TopSongsAdapter extends RecyclerView.Adapter<TopSongsAdapter.TopSon
             if (topSongModel == null)
                 return;
 
-//            ivMusicTypes.setImageResource(musicTypeModel.getImageID());
-            Picasso.with(context).load(topSongModel.getImage()).into(iv_ava_song);
+//            Picasso.with(context).load(topSongModel.getImage()).into(iv_ava_song);
+            Picasso.with(context).load(topSongModel.getImage()).transform(new CropCircleTransformation()).into(iv_ava_song);
             tv_name_song.setText(topSongModel.getName());
             tv_author_song.setText(topSongModel.getAuthor());
             view.setTag(topSongModel);
