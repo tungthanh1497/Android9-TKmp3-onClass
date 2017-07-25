@@ -1,18 +1,27 @@
 package techkids.com.android9_tkmp3_onclass.fragments;
 
 
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -22,6 +31,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,6 +58,10 @@ public class TopSongsFragment extends Fragment implements View.OnClickListener {
     TextView tvMusicType;
     @BindView(R.id.tv_num_of_songs)
     TextView tvNumOfSongs;
+    @BindView(R.id.iv_back_button)
+    ImageView ivBackButton;
+    @BindView(R.id.tb_top_songs)
+    Toolbar tbTopSongs;
 
     private static final String TAG = MusticTypesFragment.class.toString();
     @BindView(R.id.rv_top_songs)
@@ -67,8 +81,13 @@ public class TopSongsFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_top_songs_old, container, false);
         setupUI(view);
+        setupListener();
         loadDatas();
         return view;
+    }
+
+    private void setupListener() {
+        ivBackButton.setOnClickListener(this);
     }
 
     private void loadDatas() {
@@ -107,12 +126,17 @@ public class TopSongsFragment extends Fragment implements View.OnClickListener {
 
     private void setupUI(View view) {
         ButterKnife.bind(this, view);
+        tbTopSongs.setElevation(10);
+
         EventBus.getDefault().register(this);
 
 
         topSongsAdapter = new TopSongsAdapter(topSongModelList, getContext());
         rvTopSongs.setAdapter(topSongsAdapter);
 
+//        ((ActionBarActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        ((ActionBarActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        mActionBar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back));
 
 
         ivBackgroundCover.setImageResource(musicTypeModel.getImageID());
@@ -133,10 +157,36 @@ public class TopSongsFragment extends Fragment implements View.OnClickListener {
         musicTypeModel = onClickMusicType.getMusicTypeModel();
     }
 
+    void onBackPressed() {
+        getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
+
     @Override
     public void onClick(View v) {
+        if (v == ivBackButton) {
+            tbTopSongs.setElevation(0);
+            onBackPressed();
+            return;
+        }
         TopSongModel topSongModel = (TopSongModel) v.getTag();
         MusicManager.loadSearchSong(topSongModel, getContext());
+
+        RelativeLayout rlMiniPlayer = (RelativeLayout) getActivity().findViewById(R.id.rl_mini_player);
+        SeekBar sbSeekbar = (SeekBar) rlMiniPlayer.findViewById(R.id.sb_seekbar);
+        ImageView ivAvaSong = (ImageView) rlMiniPlayer.findViewById(R.id.iv_ava_song);
+        TextView tvNameSong = (TextView) rlMiniPlayer.findViewById(R.id.tv_name_song);
+        TextView tvAuthorSong = (TextView) rlMiniPlayer.findViewById(R.id.tv_author_song);
+
+        sbSeekbar.setPadding(0, 0, 0, 0);
+        sbSeekbar.getThumb().mutate().setAlpha(0);
+        sbSeekbar.setProgress(0);
+
+        Picasso.with(getContext()).load(topSongModel.getImage()).transform(new CropCircleTransformation()).into(ivAvaSong);
+        tvNameSong.setText(topSongModel.getName());
+        tvAuthorSong.setText(topSongModel.getAuthor());
+        rlMiniPlayer.setVisibility(View.VISIBLE);
+
+
 //        ScreenManager.openFragment(getActivity().getSupportFragmentManager(), new DownloadFragment(), R.id.rl_layout_container, this);
 
     }
