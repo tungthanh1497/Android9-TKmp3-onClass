@@ -1,5 +1,7 @@
 package techkids.com.android9_tkmp3_onclass;
 
+import android.content.Context;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,12 +10,22 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import techkids.com.android9_tkmp3_onclass.adapters.PagerAdapter;
+import techkids.com.android9_tkmp3_onclass.fragments.MainPlayerFragment;
+import techkids.com.android9_tkmp3_onclass.managers.MusicManager;
+import techkids.com.android9_tkmp3_onclass.managers.ScreenManager;
 
 public class MainActivity extends AppCompatActivity {
     String TAG = MainActivity.class.toString();
+    @BindView(R.id.fab_play_button)
+    FloatingActionButton fapPlayButton;
+    public static RelativeLayout rlMiniPlayer;
 
 
     @Override
@@ -22,6 +34,21 @@ public class MainActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
+        ButterKnife.bind(this);
+        fapPlayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MusicManager.playPauseMusic();
+            }
+        });
+        rlMiniPlayer = (RelativeLayout) findViewById(R.id.rl_mini_player);
+        rlMiniPlayer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rlMiniPlayer.setVisibility(View.GONE);
+                ScreenManager.openFragment(getSupportFragmentManager(), new MainPlayerFragment(), R.id.rl_layout_container);
+            }
+        });
 
 
 //        final GetMusicTypes getMusicTypes = RetrofitFactory.getInstance().create(GetMusicTypes.class);

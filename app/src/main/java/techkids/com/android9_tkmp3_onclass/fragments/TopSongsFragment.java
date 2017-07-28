@@ -4,6 +4,7 @@ package techkids.com.android9_tkmp3_onclass.fragments;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
@@ -40,6 +41,7 @@ import techkids.com.android9_tkmp3_onclass.adapters.TopSongsAdapter;
 import techkids.com.android9_tkmp3_onclass.databases.MusicTypeModel;
 import techkids.com.android9_tkmp3_onclass.databases.TopSongModel;
 import techkids.com.android9_tkmp3_onclass.events.OnClickMusicType;
+import techkids.com.android9_tkmp3_onclass.events.OnClickSong;
 import techkids.com.android9_tkmp3_onclass.managers.MusicManager;
 import techkids.com.android9_tkmp3_onclass.managers.ScreenManager;
 import techkids.com.android9_tkmp3_onclass.networks.GetTopSongs;
@@ -149,7 +151,37 @@ public class TopSongsFragment extends Fragment implements View.OnClickListener {
         rvTopSongs.addItemDecoration(dividerItemDecoration);
 
         rvTopSongs.setLayoutManager(manager);
-        topSongsAdapter.setOnItemClick(this);
+        topSongsAdapter.setOnItemClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RelativeLayout rlMiniPlayer = (RelativeLayout) getActivity().findViewById(R.id.rl_mini_player);
+                SeekBar sbSeekbar = (SeekBar) rlMiniPlayer.findViewById(R.id.sb_seekbar);
+                ImageView ivAvaSong = (ImageView) rlMiniPlayer.findViewById(R.id.iv_ava_song);
+                TextView tvNameSong = (TextView) rlMiniPlayer.findViewById(R.id.tv_name_song);
+                TextView tvAuthorSong = (TextView) rlMiniPlayer.findViewById(R.id.tv_author_song);
+                FloatingActionButton fabPlayButton = (FloatingActionButton) rlMiniPlayer.findViewById(R.id.fab_play_button);
+
+                TopSongModel topSongModel = (TopSongModel) v.getTag();
+
+
+                EventBus.getDefault().postSticky(new OnClickSong(topSongModel));
+
+                MusicManager.loadSearchSong(topSongModel, getContext(), sbSeekbar, fabPlayButton);
+
+                sbSeekbar.setPadding(0, 0, 0, 0);
+//        sbSeekbar.getThumb().mutate().setAlpha(0);
+                sbSeekbar.setProgress(0);
+
+                Picasso.with(getContext()).load(topSongModel.getImage()).transform(new CropCircleTransformation()).into(ivAvaSong);
+                tvNameSong.setText(topSongModel.getName());
+                tvAuthorSong.setText(topSongModel.getAuthor());
+                rlMiniPlayer.setVisibility(View.VISIBLE);
+
+
+//        ScreenManager.openFragment(getActivity().getSupportFragmentManager(), new DownloadFragment(), R.id.rl_layout_container, this);
+
+            }
+        });
     }
 
     @Subscribe(sticky = true)
@@ -168,26 +200,7 @@ public class TopSongsFragment extends Fragment implements View.OnClickListener {
             onBackPressed();
             return;
         }
-        TopSongModel topSongModel = (TopSongModel) v.getTag();
-        MusicManager.loadSearchSong(topSongModel, getContext());
 
-        RelativeLayout rlMiniPlayer = (RelativeLayout) getActivity().findViewById(R.id.rl_mini_player);
-        SeekBar sbSeekbar = (SeekBar) rlMiniPlayer.findViewById(R.id.sb_seekbar);
-        ImageView ivAvaSong = (ImageView) rlMiniPlayer.findViewById(R.id.iv_ava_song);
-        TextView tvNameSong = (TextView) rlMiniPlayer.findViewById(R.id.tv_name_song);
-        TextView tvAuthorSong = (TextView) rlMiniPlayer.findViewById(R.id.tv_author_song);
-
-        sbSeekbar.setPadding(0, 0, 0, 0);
-        sbSeekbar.getThumb().mutate().setAlpha(0);
-        sbSeekbar.setProgress(0);
-
-        Picasso.with(getContext()).load(topSongModel.getImage()).transform(new CropCircleTransformation()).into(ivAvaSong);
-        tvNameSong.setText(topSongModel.getName());
-        tvAuthorSong.setText(topSongModel.getAuthor());
-        rlMiniPlayer.setVisibility(View.VISIBLE);
-
-
-//        ScreenManager.openFragment(getActivity().getSupportFragmentManager(), new DownloadFragment(), R.id.rl_layout_container, this);
 
     }
 
