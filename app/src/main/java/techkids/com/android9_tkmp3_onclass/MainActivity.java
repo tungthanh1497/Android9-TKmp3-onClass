@@ -45,8 +45,7 @@ public class MainActivity extends AppCompatActivity {
         rlMiniPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rlMiniPlayer.setVisibility(View.GONE);
-                ScreenManager.openFragment(getSupportFragmentManager(), new MainPlayerFragment(), R.id.rl_layout_container);
+                ScreenManager.openFragment(getSupportFragmentManager(), new MainPlayerFragment(), R.id.rl_full_layout);
             }
         });
 

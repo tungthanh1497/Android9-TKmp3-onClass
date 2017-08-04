@@ -3,14 +3,12 @@ package techkids.com.android9_tkmp3_onclass.managers;
 import android.content.Context;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -18,13 +16,15 @@ import hybridmediaplayer.HybridMediaPlayer;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import techkids.com.android9_tkmp3_onclass.FuzzyMatch;
+import techkids.com.android9_tkmp3_onclass.services.PlayMusicNotification;
+import techkids.com.android9_tkmp3_onclass.utils.FuzzyMatch;
 import techkids.com.android9_tkmp3_onclass.R;
 import techkids.com.android9_tkmp3_onclass.databases.TopSongModel;
 import techkids.com.android9_tkmp3_onclass.networks.GetSearchSong;
 import techkids.com.android9_tkmp3_onclass.networks.RetrofitFactory;
 import techkids.com.android9_tkmp3_onclass.networks.jsonModels.jsonSearchSong.SearchSongJSONModel;
 import techkids.com.android9_tkmp3_onclass.networks.jsonModels.jsonSearchSong.SearchSongRespondModel;
+import techkids.com.android9_tkmp3_onclass.utils.Utils;
 
 /**
  * Created by tungthanh.1497 on 07/22/2017.
@@ -133,17 +133,18 @@ public class MusicManager {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                isChangeing=true;
+                isChangeing = true;
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 mediaPlayer.seekTo(currentPosition[0]);
-                isChangeing=false;
+                isChangeing = false;
             }
         });
 
     }
+
     public static void updateSongRealtime(final SeekBar sbSeekbar, final FloatingActionButton fabPlayButton, final TextView tvCurrentTime, final TextView tvEndTime) {
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
@@ -152,37 +153,35 @@ public class MusicManager {
                 sbSeekbar.setMax(mediaPlayer.getDuration());
                 if (!isChangeing) {
                     sbSeekbar.setProgress(mediaPlayer.getCurrentPosition());
-                    int totalTime = mediaPlayer.getDuration()/1000;
-                    int minutes = totalTime / 60;
-                    int seconds = totalTime % 60;
-                    if(minutes<10){
-                        tvEndTime.setText("0" + minutes);
-                    }else {
-                        tvEndTime.setText(minutes);
-                    }
-                    if(seconds<10){
-                        tvEndTime.setText(tvEndTime.getText()+":0"+seconds);
-                    }else {
-                        tvEndTime.setText(tvEndTime.getText()+":"+seconds);
-                    }
+//                    int totalTime = mediaPlayer.getDuration()/1000;
+//                    int minutes = totalTime / 60;
+//                    int seconds = totalTime % 60;
+//                    if(minutes<10){
+//                        tvEndTime.setText("0" + minutes);
+//                    }else {
+//                        tvEndTime.setText(minutes);
+//                    }
+//                    if(seconds<10){
+//                        tvEndTime.setText(tvEndTime.getText()+":0"+seconds);
+//                    }else {
+//                        tvEndTime.setText(tvEndTime.getText()+":"+seconds);
+//                    }
 
 
-                    totalTime = mediaPlayer.getCurrentPosition()/1000;
-                    minutes = totalTime/60;
-                    seconds = totalTime%60;
-                    if(minutes<10){
-                        tvCurrentTime.setText("0" + minutes);
-                    }else {
-                        tvCurrentTime.setText(minutes);
-                    }
-                    if(seconds<10){
-                        tvCurrentTime.setText(tvCurrentTime.getText()+":0"+seconds);
-                    }else {
-                        tvCurrentTime.setText(tvCurrentTime.getText()+":"+seconds);
-                    }
-//                    tvCurrentTime.setText((minutes < 10) ? ("0" + minutes) : ("" + minutes));
-//                    tvCurrentTime.setText((seconds < 10) ? (tvCurrentTime.getText() + ":0" + seconds) : (tvCurrentTime.getText() + ":" + seconds));
-//                    tvCurrentTime.setText(minutes+":"+seconds);
+//                    totalTime = mediaPlayer.getCurrentPosition()/1000;
+//                    minutes = totalTime/60;
+//                    seconds = totalTime%60;
+//                    if(minutes<10){
+//                        tvCurrentTime.setText("0" + minutes);
+//                    }else {
+//                        tvCurrentTime.setText(minutes);
+//                    }
+//                    if(seconds<10){
+//                        tvCurrentTime.setText(tvCurrentTime.getText()+":0"+seconds);
+//                    }else {
+//                        tvCurrentTime.setText(tvCurrentTime.getText()+":"+seconds);
+//                    }
+
                 }
                 handler.postDelayed(this, 100);
                 if (mediaPlayer.isPlaying()) {
@@ -190,6 +189,11 @@ public class MusicManager {
                 } else {
                     fabPlayButton.setImageResource(R.drawable.exo_controls_play);
                 }
+                PlayMusicNotification.updateNotification(mediaPlayer.isPlaying());
+
+                tvEndTime.setText(Utils.converTime(mediaPlayer.getDuration()));
+                tvCurrentTime.setText(Utils.converTime(mediaPlayer.getCurrentPosition()));
+
             }
         };
         runnable.run();
@@ -199,21 +203,18 @@ public class MusicManager {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 currentPosition[0] = progress;
-                int totalTime = progress/1000;
-                int minutes = totalTime/60;
-                int seconds = totalTime%60;
-                tvCurrentTime.setText(minutes+":"+seconds);
+                tvCurrentTime.setText(Utils.converTime(progress));
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                isChangeing=true;
+                isChangeing = true;
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 mediaPlayer.seekTo(currentPosition[0]);
-                isChangeing=false;
+                isChangeing = false;
             }
         });
 

@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
+    android:id="@+id/rl_full_layout"
     tools:context="techkids.com.android9_tkmp3_onclass.MainActivity">
+
     <RelativeLayout
         android:id="@+id/rl_mini_player"
         android:layout_width="match_parent"
@@ -39,8 +41,8 @@
             android:layout_below="@id/sb_seekbar"
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
-            app:borderWidth="0dp"
-            android:src="@drawable/exo_controls_pause"/>
+            android:src="@drawable/exo_controls_pause"
+            app:borderWidth="0dp" />
 
         <TextView
             android:id="@+id/tv_name_song"
@@ -66,11 +68,12 @@
             android:maxLines="1"
             android:text="ABCsfgnsgnsfgnsfn" />
     </RelativeLayout>
+
     <RelativeLayout
-        android:layout_above="@id/rl_mini_player"
         android:id="@+id/rl_layout_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@id/rl_mini_player">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -101,8 +104,6 @@
             android:layout_below="@id/tab_layout"
             android:background="@color/colorPrimaryDark" />
     </RelativeLayout>
-
-
 
 
 </RelativeLayout>

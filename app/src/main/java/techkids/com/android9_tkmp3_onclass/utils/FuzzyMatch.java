@@ -1,4 +1,4 @@
-package techkids.com.android9_tkmp3_onclass;
+package techkids.com.android9_tkmp3_onclass.utils;
 
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;

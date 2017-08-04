@@ -84,24 +84,24 @@ public class MainPlayerFragment extends Fragment implements View.OnClickListener
         tvArtistSong.setText(topSongModel.getAuthor());
         Picasso.with(getContext()).load(topSongModel.getImage()).into(ivContentImage);
         Picasso.with(getContext()).load(topSongModel.getImage()).transform(new BlurTransformation(getContext())).into(ivBlurImage);
-        int totalTime = MusicManager.mediaPlayer.getDuration() / 1000;
-        int minutes = totalTime / 60;
-        int seconds = totalTime % 60;
-        if(minutes<10){
-            tvEndTime.setText("0" + minutes);
-        }else {
-            tvEndTime.setText(minutes);
-        }
-        if(seconds<10){
-            tvEndTime.setText(tvEndTime.getText()+":0"+seconds);
-        }else {
-            tvEndTime.setText(tvEndTime.getText()+":"+seconds);
-        }
+//        int totalTime = MusicManager.mediaPlayer.getDuration() / 1000;
+//        int minutes = totalTime / 60;
+//        int seconds = totalTime % 60;
+//        if(minutes<10){
+//            tvEndTime.setText("0" + minutes);
+//        }else {
+//            tvEndTime.setText(minutes);
+//        }
+//        if(seconds<10){
+//            tvEndTime.setText(tvEndTime.getText()+":0"+seconds);
+//        }else {
+//            tvEndTime.setText(tvEndTime.getText()+":"+seconds);
+//        }
 //        tvEndTime.setText((minutes < 10) ? ("0" + minutes) : ("" + minutes));
 //        tvEndTime.setText((seconds < 10) ? (tvEndTime.getText() + ":0" + seconds) : (tvEndTime.getText() + ":" + seconds));
 
 
-        MusicManager.updateSongRealtime(sbMainPlayer, fapPlayButton, tvCurrentTime,tvEndTime);
+        MusicManager.updateSongRealtime(sbMainPlayer, fapPlayButton, tvCurrentTime, tvEndTime);
     }
 
     @Subscribe(sticky = true)
@@ -120,7 +120,6 @@ public class MainPlayerFragment extends Fragment implements View.OnClickListener
     }
 
     void onBackPressed() {
-        MainActivity.rlMiniPlayer.setVisibility(View.VISIBLE);
         getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 }

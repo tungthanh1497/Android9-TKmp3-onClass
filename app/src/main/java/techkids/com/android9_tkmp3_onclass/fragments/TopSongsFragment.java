@@ -49,6 +49,7 @@ import techkids.com.android9_tkmp3_onclass.networks.RetrofitFactory;
 import techkids.com.android9_tkmp3_onclass.networks.jsonModels.jsonModelTopSongs.TopSongImage;
 import techkids.com.android9_tkmp3_onclass.networks.jsonModels.jsonModelTopSongs.TopSongJSONModel;
 import techkids.com.android9_tkmp3_onclass.networks.jsonModels.jsonModelTopSongs.TopSongRespondModel;
+import techkids.com.android9_tkmp3_onclass.services.PlayMusicNotification;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -165,6 +166,7 @@ public class TopSongsFragment extends Fragment implements View.OnClickListener {
 
 
                 EventBus.getDefault().postSticky(new OnClickSong(topSongModel));
+                PlayMusicNotification.setupNotification(getContext(), topSongModel);
 
                 MusicManager.loadSearchSong(topSongModel, getContext(), sbSeekbar, fabPlayButton);
 
